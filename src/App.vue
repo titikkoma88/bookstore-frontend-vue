@@ -1,20 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Navbar />
+    <router-view @fromChild="retrieve" :fromParent="dataNama" />
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue';
+import Navbar from './components/Navbar.vue'; 
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // HelloWorld,
+    Navbar
+  },
+  data() {
+    return {
+      dataNama: ""
+    };
+  },
+  methods: {
+    retrieve(namammu){
+      this.dataNama = namammu;
+      alert("Nama diterima: " + this.dataNama);
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
