@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Helloworld from './components/HelloWorld.vue';
+import Katalog from './components/Katalog.vue';
 import ManajemenBuku from './components/ManajemenBuku.vue';
 
 const routes = [
     {
         path: "/",
-        component: Helloworld,
+        component: Katalog,
     },
     {
         path: "/manajemen-buku",

@@ -4,7 +4,7 @@
             <ul class="nav">
                 <img src="../assets/logo-par.png" alt="logo">
                 <li>
-                    <router-link to="/" class="nav-link">Hello</router-link>
+                    <router-link to="/" class="nav-link">Katalog</router-link>
                 </li>
                 <li>
                     <router-link to="/manajemen-buku" class="nav-link"> Manajemen Buku </router-link>

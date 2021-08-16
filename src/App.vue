@@ -1,33 +1,33 @@
 <template>
   <div>
     <Navbar />
-    <router-view @fromChild="retrieve" :fromParent="dataNama" />
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <router-view :bookList="booksData" @store="storeData" />
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue';
-import Navbar from './components/Navbar.vue'; 
+import Navbar from "./components/Navbar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    // HelloWorld,
-    Navbar
+    Navbar,
   },
   data() {
     return {
-      dataNama: ""
+      booksData: [
+        {_id: 1, judul: "Laskar Pelangi", pengarang: "Andrea Hirata", harga: 80000, stok: 7},
+        {_id: 2, judul: "New York Hari Ini", pengarang: "Aan Mansyur", harga: 85000, stok: 5}
+      ],
     };
   },
   methods: {
-    retrieve(namammu){
-      this.dataNama = namammu;
-      alert("Nama diterima: " + this.dataNama);
-    }
-  }
-}
+    storeData(bookCreated) {
+      console.log(bookCreated);
+      alert("Data berhasil ditambahkan");
+    },
+  },
+};
 </script>
 
 <style scoped>
