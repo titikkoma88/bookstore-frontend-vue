@@ -2,7 +2,7 @@
     <div class="container mt-3">
         <h1 class="text-center">Manajemen Buku</h1>
         <p>{{ bookList }}</p>
-        <div id="formTambah">
+        <div id="formTambah" v-if="formMode == 'create'">
             <h5>Tambah Buku</h5>
             <hr />
             <form class="form row" @submit.prevent="submitAdd">
@@ -23,11 +23,30 @@
                 </div>
             </form>
         </div>
-        <div id="FormUbah"></div>
+        <div id="FormUbah" v-if="formMode == 'edit'"></div>
+        <h5>Ubah Buku</h5>
+            <hr />
+            <form class="form row" @submit.prevent="submitChange">
+                <div class="col-3">
+                    <input type="text" class="form-control mx-2" placeholder="Judul" v-model="updatedBook.judul" />
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control mx-2" placeholder="Pengarang" v-model="updatedBook.pengarang" />
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control mx-2" placeholder="Harga" v-model="updatedBook.harga" />
+                </div>
+                <div class="col-2">
+                    <input type="number" class="form-control mx-2" placeholder="Stok" v-model="updatedBook.stok" />
+                </div>
+                <div class="col-2">
+                    <input type="submit" class="btn btn-warning ml-5" value="Ubah" />
+                </div>
+            </form>
         <div id="daftarBuku">
             <h2 class="mt-3">Daftar Buku</h2>
             <hr />
-            <button class="btn btn-primary m-2">
+            <button @click="formMode = 'create'" class="btn btn-primary m-2">
                 Tambah Buku
             </button>
             <table class="table table-bordered">
@@ -49,8 +68,8 @@
                         <td>{{book.harga}}</td>
                         <td>{{book.stok}}</td>
                         <td>
-                            <button class="btn btn-info mr-3">Edit</button>
-                            <button class="btn btn-danger">Hapus</button>
+                            <button class="btn btn-info mr-3" @click="showEdit(book, index)">Edit</button>
+                            <button class="btn btn-danger" @click="deleteBook(book, index)">Hapus</button>
                         </td>
                     </tr>
                 </tbody>
@@ -75,11 +94,37 @@ export default {
             this.newBook.pengarang = "";
             this.newBook.harga = "";
             this.newBook.stok = "";
-
         },
+        showEdit(book, index) {
+            this.formMode = "edit";
+            this.bookIndex = index;
+
+            this.updatedBook._id = book._id;
+            this.updatedBook.judul = book.judul;
+            this.updatedBook.pengarang = book.pengarang;
+            this.updatedBook.harga = book.harga;
+            this.updatedBook.stok = book.stok;
+        },
+        submitChange() {
+            const bookChanged = this.updatedBook;
+            this.$emit("update", bookChanged, this.bookIndex);
+            this.formMode = "";
+        },
+        deleteBook(book, index) {
+            this.$emit("delete", book, index)
+        }
     },
     data() {
         return {
+            formMode:"",
+            bookIndex: "",
+            updatedBook: {
+                _id: "",
+                judul: "",
+                pengarang: "",
+                harga: "",
+                stok: "",
+            },
             newBook: {
                 judul: "",
                 pengarang: "",
